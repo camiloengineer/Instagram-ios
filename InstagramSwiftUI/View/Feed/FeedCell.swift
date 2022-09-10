@@ -45,22 +45,23 @@ struct FeedCell: View {
                 Button(action: {
                     didLike ? viewModel.unlike() : viewModel.like()
                 }, label: {
-                    Image(systemName: "heart")
+                    Image(systemName: didLike ? "heart.fill" : "heart")
                         .resizable()
                         .scaledToFill()
+                        .foregroundColor(didLike ? .red : .black)
                         .frame(width: 20, height: 20)
                         .font(.system(size: 20))
                         .padding(4)
                 })
                 
-                Button(action: {}, label: {
+                NavigationLink(destination: CommentsView(post: viewModel.post)) {
                     Image(systemName: "bubble.right")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 20, height: 20)
                         .font(.system(size: 20))
                         .padding(4)
-                })
+                }
                 
                 Button(action: {}, label: {
                     Image(systemName: "paperplane")
@@ -76,7 +77,7 @@ struct FeedCell: View {
             
             // caption
             
-            Text("\(viewModel.post.likes) likes")
+            Text(viewModel.likeString)
                 .font(.system(size: 14, weight: .semibold))
                 .padding(.leading, 8)
                 .padding(.bottom, 2)
